@@ -12,13 +12,14 @@ The consensus derivation logic has been built from the ground up, without relyin
 # Why is this tool important?
 In a world of abundant generative AI, we need tools to parse truth from fiction, and be able to consider information with some confidence, so this tool tries to compare multiple (LLM) model outputs to arrive at a single consensus response (with text that is extracted from multiple models with statistical rigor ), which can be stored in decentralised public annals, with timestamps for relevance. Informative Output: The app generates a consensus response from multiple LLM outputs, after eliminating wild hallucinations and outlier responses, and the output includes confidence levels and a disclaimer about the nature of AI-generated advice, which is especially important for medical contexts. Analysis Function: A function that provides detailed analysis of the consensus visually and textually. This implementation eliminates outlier responses through similarity analysis Includes only high-consensus information by clustering similar responses Provides confidence intervals through the consensus confidence calculation Suitable for high fidelity scenarios such as medical diagnosis by emphasizing agreement among models and including appropriate disclaimers The system now provides not just a single response (consensus response along with a verified model output), but information about how confident we can be in that consensus, which is crucial for critical applications requiring precision and accuracy like medical diagnosis, space, scientific missions etc. While this is not meant to be a substitute for human precision and judgement, tools such as this are a step towards Artificial General Intelligence.
 
+
 # Technical Implementation 
 A Community-built, Verifiable Knowledge Base
 truthful.ai is a platform driven by AI for consensus learning that generates and validates knowledge through multi-model verification, statistical analysis, and blockchain-based immutability.
 
 # Trusted Knowledge Hub - Monad Edition - Deployment
 
-App front end deployed at [https://monad-qsqnovd2c-aks-projects-d7b4b04d.vercel.app]
+App front end deployed at [https://trusted-knowledge-hub.vercel.app]
 
 ## 🚀 Key Features
 - **Decentralised Monad-Powered Consensus of AI-generated content** : High throughput 10,000 TPS validation on Monad
