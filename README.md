@@ -14,6 +14,54 @@ In a world of abundant generative AI, we need tools to parse truth from fiction,
 A Community-built, Verifiable Knowledge Base
 truthful.ai is a platform driven by AI for consensus learning that generates and validates knowledge through multi-model verification, statistical analysis, and blockchain-based immutability.
 
+# Trusted Knowledge Hub - Monad Edition - Deployment
+
+App front end deployed at [https://monad-qsqnovd2c-aks-projects-d7b4b04d.vercel.app]
+
+## 🚀 Key Features
+- **Decentralised Monad-Powered Consensus of AI-generated content** : High throughput 10,000 TPS validation on Monad
+- **Staking Mechanism**: `TRUTH` token staking contract (ERC-20 compatible)
+- **ZK-Proof Verification**: Private voting using zk-SNARKs 
+- **Real-Time Dashboard**: Monad EVM block explorer integration
+- ** Dedicated ZK utilities for Monad blockchain
+- ** Enhanced verification badge to display ZK verification status
+- ** Smart contract integration for voting on content validity
+- ** Transaction recording on Monad blockchain with content hash verification
+- ** Created verification metadata generation with validator signatures
+
+## Truth Token & Tokenomics
+- ** Token Incentives System
+- ** Implemented $TRUTH token dashboard for staking and rewards
+- ** Added token reward claiming for accurate submissions and validations
+- ** Created UI for displaying token incentives and earning opportunities
+
+## On-Chain Governance
+- ** Added DAO governance panel for voting on proposals
+- ** Implemented proposal creation and voting mechanics
+- ** Integrated staking for voting power in governance decisions
+
+
+## 🛠 Quick Start
+Install dependencies
+npm install @monadchain/sdk @wagmi/core
+
+Configure environment
+cp .env.example .env
+
+Add your MONAD_RPC_URL and wallet config
+Start local node
+npx hardhat node --network monad
+
+text
+
+## 🔗 Monad Integrations
+| Component          | Monad Advantage                  |
+|---------------------|----------------------------------|
+| Consensus Protocol  | 1-second finality via pipelining |
+| Data Storage        | Low-cost calldata storage        |
+| DAO Governance      | EVM-compatible voting            |
+
+
 # Overview
 truthful.ai addresses a critical challenge in the AI era: determining the reliability of information. By leveraging multiple LLM responses to the same query, analyzing their consensus patterns, and permanently recording verified answers, we create a trustworthy knowledge repository that grows more valuable over time.
 
@@ -30,7 +78,7 @@ Multiple LLMs and AI apps
 # Key Features
 Multi-model Consensus: Queries multiple AI models for verification
 Statistical Validation: Analyzes response similarity and confidence metrics
-Blockchain Permanence: Stores verified answers on Flare blockchain TEE
+Blockchain Permanence: Stores verified answers on Monad blockchain / Flare blockchain TEE
 Temporal Context: Timestamps all knowledge entries for relevance tracking
 Community Governance: Enables community participation in knowledge validation
 
@@ -52,8 +100,8 @@ Installation
 bash
 
 Copy
-git clone https://github.com/agentzeta/trusted-knowledge-hub.git
-cd trusted-knowledge-hub
+git clone https://github.com/agentzeta/trusted-knowledge-on-monad.git
+cd trusted-knowledge-on-monad
 npm install
 Configuration
 Create a .env file in the root directory with the following variables:
@@ -102,9 +150,12 @@ Phase 3: Community governance mechanisms
 Phase 4: API access to the verified knowledge base
 Phase 5: Integration with other knowledge tools and platforms
 License
-This project is licensed under the MIT License - see the LICENSE file for details.
-This project was created at UC Berkely campus for a coding challenge.
+This project was created at UC Berkely & Stanford campuses for a coding challenge.
+This project needs your valued validation to build web3's first truth consenus layer
 
 # Contact
-GitHub: https://github.com/agentzeta/trusted-knowledge-hub
+GitHub: https://github.com/agentzeta/trusted-knowledge-on-monad
 Email: himalayalabs@gmail.com
+
+## 📜 License
+MIT License (Monad Hackathon Edition)
