@@ -19,7 +19,7 @@ truthful.ai is a platform driven by AI for consensus learning that generates and
 
 # Trusted Knowledge Hub - Monad Edition - Deployment
 
-App front end deployed at [https://trusted-knowledge-hub.vercel.app]
+App front end deployed at [https://trusted-knowledge-hub.vercel.app]. (please note, the front end deployed here is an interim version and not the final version. The final code version on githuib has Monad blockchain features integrated and contracts deployed on Monad network.)
 
 TruthToken deployed at: 0xFb75AfE2F631fC2935D8e4D293D26aeC5fd718A1
 TrustedVerification deployed at: 0x9dEECfCF14c9F2a321aE65e4cd18169A47de6945
