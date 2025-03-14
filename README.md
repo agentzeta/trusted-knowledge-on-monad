@@ -143,6 +143,141 @@ trusted-knowledge-hub/
 Contribution
 truthful.ai is designed as a community project. Contributions are welcome in the following areas:
 
+
+# .env
+# Monad Network
+MONAD_RPC_URL=your_monad_rpc_url_here
+PRIVATE_KEY=0xyour_private_key_here
+
+# Contract Addresses (to be filled after deployment)
+VERIFICATION_CONTRACT_ADDRESS=0x9dEECfCF14c9F2a321aE65e4cd18169A47de6945
+TRUTH_TOKEN_ADDRESS=0xFb75AfE2F631fC2935D8e4D293D26aeC5fd718A1
+
+# Optional: For development
+MONAD_CHAIN_ID=1
+
+# foundry.toml
+[profile.default]
+src = "contracts"
+out = "out"
+libs = ["lib"]
+solc_version = "0.8.13"  # Adjust to match your contract's pragma
+
+[rpc_endpoints]
+monad = "${MONAD_RPC_URL}"
+
+# script directory
+# script/Deploy.s.sol
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.13;
+
+import "forge-std/Script.sol";
+import "../contracts/TruthToken.sol";
+import "../contracts/TrustedVerification.sol";
+
+contract DeployScript is Script {
+    function run() public {
+        // Read the private key from environment and add 0x prefix if needed
+        string memory rawKey = vm.envString("PRIVATE_KEY");
+        bytes memory rawKeyBytes = bytes(rawKey);
+        
+        // Check if key already has 0x prefix
+        bool hasPrefix = rawKeyBytes.length >= 2 && rawKeyBytes[0] == '0' && rawKeyBytes[1] == 'x';
+        
+        // Convert to uint256
+        uint256 deployerPrivateKey;
+        if (hasPrefix) {
+            deployerPrivateKey = vm.envUint("PRIVATE_KEY");
+        } else {
+            // Add 0x prefix and parse
+            deployerPrivateKey = vm.parseUint(string(abi.encodePacked("0x", rawKey)));
+        }
+        
+        address deployer = vm.addr(deployerPrivateKey);
+        
+        // Start broadcasting transactions
+        vm.startBroadcast(deployerPrivateKey);
+
+        // Deploy TruthToken
+        TruthToken truthToken = new TruthToken(deployer);
+        console.log("TruthToken deployed to:", address(truthToken));
+
+        // Deploy TrustedVerification
+        TrustedVerification trustedVerification = new TrustedVerification(
+            address(truthToken),
+            deployer
+        );
+        console.log("TrustedVerification deployed to:", address(trustedVerification));
+
+        vm.stopBroadcast();
+
+        // Log the addresses to make it easy to update .env
+        console.log("\nUpdate your .env file with these values:");
+        console.log("TRUTH_TOKEN_ADDRESS=", address(truthToken));
+        console.log("VERIFICATION_CONTRACT_ADDRESS=", address(trustedVerification));
+    }
+}
+
+# contracts directory
+# contracts/Test.sol
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.13;
+
+contract Test {
+    function hello() public pure returns (string memory) {
+        return "Hello, World!";
+    }
+}
+
+# MonadService.ts (location may vary)
+import { ethers } from 'ethers';
+import { ZkProof } from '../types/blockchain';
+import { VERIFICATION_ABI } from '../constants/abi';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+
+export class MonadService {
+  private provider: ethers.providers.JsonRpcProvider;
+  private signer: ethers.Signer;
+  
+  // Hardcoded contract addresses as fallback
+  private readonly VERIFICATION_CONTRACT_ADDRESS = '0x9dEECfCF14c9F2a321aE65e4cd18169A47de6945';
+  private readonly TRUTH_TOKEN_ADDRESS = '0xFb75AfE2F631fC2935D8e4D293D26aeC5fd718A1';
+
+  constructor() {
+    this.provider = new ethers.providers.JsonRpcProvider(process.env.MONAD_RPC_URL);
+    this.signer = new ethers.Wallet(process.env.PRIVATE_KEY!, this.provider);
+  }
+
+  async submitVerification(contentHash: string, zkProof: ZkProof) {
+    const contractAddress = process.env.VERIFICATION_CONTRACT_ADDRESS || this.VERIFICATION_CONTRACT_ADDRESS;
+    
+    const contract = new ethers.Contract(
+      contractAddress,
+      VERIFICATION_ABI,
+      this.signer
+    );
+
+    const tx = await contract.submitVerification(contentHash, zkProof);
+    return await tx.wait();
+  }
+
+  async getVerificationStatus(contentHash: string) {
+    const contractAddress = process.env.VERIFICATION_CONTRACT_ADDRESS || this.VERIFICATION_CONTRACT_ADDRESS;
+    
+    const contract = new ethers.Contract(
+      contractAddress,
+      VERIFICATION_ABI,
+      this.provider
+    );
+
+    return await contract.verificationStatus(contentHash);
+  }
+}
+
+
+
 # Adding support for additional LLM providers
 Improving consensus algorithms
 Enhancing the user interface
